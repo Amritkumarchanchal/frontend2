@@ -3,7 +3,7 @@ name: Deploy to Firebase Hosting
 on:
   push:
     branches:
-      - main
+      - master
   workflow_dispatch:
 
 jobs:
@@ -13,7 +13,7 @@ jobs:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v2
       with:
-        node-version: '20'  # Recommended to use LTS version
+        node-version: '20'  # Recommended to use latest version
     - name: Change to frontend directory
       run: cd frontend
     - name: Install Dependencies
@@ -26,7 +26,7 @@ jobs:
       run: npm run build
       working-directory: ./frontend
     - name: Deploy to Firebase
-      run: firebase deploy --only hosting --token ${{ secrets.FIREBASE_TOKEN }} --project cal-frontend
+      run: firebase deploy --only hosting --token ${{ secrets.FIREBASE_TOKEN }} --project cal-frontendd
       working-directory: ./frontend
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
