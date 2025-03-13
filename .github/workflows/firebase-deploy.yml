@@ -13,7 +13,7 @@ jobs:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v2
       with:
-        node-version: '20'  # Recommended to use latest version
+        node-version: '20'  # Recommended to use LTS version
     - name: Change to frontend directory
       run: cd frontend
     - name: Install Dependencies
@@ -26,7 +26,7 @@ jobs:
       run: npm run build
       working-directory: ./frontend
     - name: Deploy to Firebase
-      run: firebase deploy --only hosting --token ${{ secrets.FIREBASE_TOKEN }} --project cal-frontendd
+      run: firebase deploy --only hosting --token ${{ secrets.FIREBASE_TOKEN }} --project cal-frontend
       working-directory: ./frontend
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
