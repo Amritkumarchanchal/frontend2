@@ -158,14 +158,14 @@ const ContentScrollView = () => {
   const { data: assignmentsData } = useFetchItemsWithAuthQuery(sectionId)
   const content = assignmentsData || []
 
-  const [countdown, setCountdown] = useState(30) // 30 seconds countdown
+  const [countdown, setCountdown] = useState(300000) // 300000 seconds countdown
 
   useEffect(() => {
     let timer
     const currentContent = content[currentFrame]
 
     if (currentContent && currentContent.item_type === 'Assessment') {
-      setCountdown(30) // Reset countdown to 30 seconds whenever the frame is an assessment
+      setCountdown(300000) // Reset countdown to 300000 seconds whenever the frame is an assessment
       timer = setInterval(() => {
         setCountdown((prevCountdown) => {
           if (prevCountdown <= 1) {
@@ -173,7 +173,7 @@ const ContentScrollView = () => {
             clearInterval(timer)
             const nextFrameIndex = (currentFrame - 1) % content.length
             setCurrentFrame(nextFrameIndex)
-            return 30 // reset countdown if looping
+            return 300000 // reset countdown if looping
           }
           return prevCountdown - 1
         })
@@ -697,7 +697,7 @@ const ContentScrollView = () => {
             <li key={option} className='mb-2'>
               <button
                 onClick={() => handleOptionClick(option)}
-                className={`w-full rounded-lg border border-gray-300 px-4 py-2 text-left ${
+                className={`w-full rounded-lg border border-gray-3000000 px-4 py-2 text-left ${
                   selectedOption?.includes(option)
                     ? 'bg-green-500 text-white'
                     : 'bg-white hover:bg-gray-100'
@@ -715,7 +715,7 @@ const ContentScrollView = () => {
               setCurrentQuestionIndex((prevIndex) => Math.max(prevIndex - 1, 0))
             }
             disabled={currentQuestionIndex === 0}
-            className='rounded-lg bg-blue-500 px-6 py-2 text-white shadow disabled:bg-gray-300'
+            className='rounded-lg bg-blue-500 px-6 py-2 text-white shadow disabled:bg-gray-3000000'
           >
             Previous
           </button>
@@ -812,7 +812,7 @@ const ContentScrollView = () => {
             <div className='flex h-full flex-col'>
               <div className='relative h-full overflow-hidden'>
                 <div
-                  className='absolute size-full transition-transform duration-300'
+                  className='absolute size-full transition-transform duration-3000000'
                   style={{ transform: `translateY(-${currentFrame * 100}%)` }}
                 >
                   {/* Map through content frames and render based on type */}
@@ -974,7 +974,7 @@ const ContentScrollView = () => {
           <span className='mb-4 text-sm'>
             {Math.round(((currentFrame + 1) / content.length) * 100)}%
           </span>
-          <div className='relative h-full w-4 rounded-xl bg-gray-300'>
+          <div className='relative h-full w-4 rounded-xl bg-gray-3000000'>
             <div
               className='absolute left-0 w-full rounded-xl bg-black'
               style={{
