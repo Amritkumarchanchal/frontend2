@@ -10,6 +10,7 @@ const EnrollStudents = () => {
   const courses = useSelector((state) => state.courses.courses ?? [])
   const [courseEnroll] = useCourseEnrollMutation();
   const [selectedCourse, setSelectedCourse] = useState('')
+  const dummyBatch = 'batch-1'
 
   useEffect(() => {
     if (!users || users.length === 0) {
@@ -49,7 +50,8 @@ const EnrollStudents = () => {
     const courseId = selectedCourse; // Replace with your actual course ID
     courseEnroll({
       courseId,
-      studentIds: selectedUsers
+      studentIds: selectedUsers,
+      batchName: dummyBatch,
     });
   }
 

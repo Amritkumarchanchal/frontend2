@@ -4,6 +4,7 @@ import BlurDetection from "./BlurDetector";
 import SpeechDetector from "./SpeechDetector";
 import useCameraProcessor from "./useCameraProcessor";
 import FaceDetectors from "./FaceDetectors";
+import { set } from "date-fns";
 
 const CALM: React.FC = () => {
   const [gestureTrigger, setGestureTrigger] = useState(false);
@@ -13,6 +14,23 @@ const CALM: React.FC = () => {
   const [isFocused, setIsFocused] = useState(false);
   const [facesCount, setFacesCount] = useState(0);
   const [penaltyPoints, setPenaltyPoints] = useState(0); // Track cumulative penalty points
+  const [penaltyType, setPenaltyType ] = useState("");
+  // Load penalty points from local storage on component mount
+  useEffect(() => {
+    const storedPenaltyPoints = localStorage.getItem("penaltyPoints");
+    if (storedPenaltyPoints) {
+      setPenaltyPoints(parseInt(storedPenaltyPoints, 10));
+      setPenaltyType(localStorage.getItem("penaltyType") || "");
+    }
+  }, []);
+
+  console.log("Hello g",localStorage.getItem("penaltyPoints"))
+
+  // Store penalty points in local storage whenever it changes
+  useEffect(() => {
+    localStorage.setItem("penaltyPoints", penaltyPoints.toString());
+    localStorage.setItem("penaltyType", penaltyType.toString());
+  }, [penaltyPoints]);
 
   // Get our videoRef and face data from the custom hook
   const { videoRef, modelReady, faces } = useCameraProcessor(1);
@@ -25,30 +43,36 @@ const CALM: React.FC = () => {
   // Check and update the penalty points when any anomaly occurs
   useEffect(() => {
     let newPenaltyPoints = 0;
+    let newPenaltyType = "";
 
     // Condition 1: If speaking is detected
     if (isSpeaking === "Yes") {
+      newPenaltyType = "Speaking";
       newPenaltyPoints += 1;
     }
 
     // Condition 2: If faces count is not exactly 1
     if (facesCount !== 1) {
+      newPenaltyType = "Faces Count";
       newPenaltyPoints += 1;
     }
 
     // Condition 3: If the screen is blurred
     if (isBlur === "Yes") {
+      newPenaltyType = "Blur";
       newPenaltyPoints += 1;
     }
 
     // Condition 4: If not focused
     if (!isFocused) {
+      newPenaltyType = "Focus";
       newPenaltyPoints += 1;
     }
 
     // If there are any new penalty points, increment the cumulative score
     if (newPenaltyPoints > 0) {
       setPenaltyPoints((prevPoints) => prevPoints + newPenaltyPoints);
+      setPenaltyType(newPenaltyType);
     }
   }, [isSpeaking, facesCount, isBlur, isFocused]); // Watch for changes to these variables
 
