@@ -629,17 +629,28 @@ const ContentScrollView = () => {
   // const handleOptionClick = (option) => {
   //   setSelectedOption(option)
   // }
-  const handleOptionClick = (option: string) => {
+  const handleOptionClick = (option: string, question) => {
     setSelectedOption((prevSelected) => {
-      if (prevSelected.includes(option)) {
-        // If already selected, remove it (undo selection)
-        return prevSelected.filter((id) => id !== option)
+      if (question.type === 'multi-select') {
+        // For multi-select questions, toggle the selection
+        if (prevSelected.includes(option)) {
+          return prevSelected.filter((id) => id !== option);
+        } else {
+          return [...prevSelected, option];
+        }
       } else {
-        // Otherwise add it to the list
-        return [...prevSelected, option]
+        // For single-select questions, set the selection to just this option
+        if (prevSelected.includes(option)) {
+          // If the option is already selected, clicking it again will deselect it
+          return prevSelected.filter((id) => id !== option);
+        } else {
+          // Set selectedOption to an array containing only this option
+          return [option];
+        }
       }
-    })
-  }
+    });
+  };
+  
 
   // This funtion is responsible to go backward to the previous question
   const handlePrevQuestion = () => {
@@ -725,7 +736,7 @@ const ContentScrollView = () => {
           {question.options.map((option) => (
             <li key={option} className='mb-2'>
               <button
-                onClick={() => handleOptionClick(option)}
+                onClick={() => handleOptionClick(option, question)}
                 className={`w-full rounded-lg border border-gray-300 px-4 py-2 text-left ${
                   selectedOption?.includes(option)
                     ? 'bg-green-500 text-white'

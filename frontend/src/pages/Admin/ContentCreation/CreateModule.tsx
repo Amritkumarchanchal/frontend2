@@ -37,29 +37,44 @@ const CreateModule = () => {
     }, [dispatch, courseId, moduleData])
 
   return (
-    <div className='p-5'>
-      <div className='mb-4 flex justify-between items-center'>
-        <h1 className='text-xl font-semibold'>All Modules</h1>
-        <AdminModuleCreation />
+    <div className='p-6 bg-gray-100 h-full'>
+      <div className='mb-6 flex justify-between items-center'>
+      <h1 className='text-2xl font-bold text-gray-800'>Manage Modules</h1>
+      <AdminModuleCreation />
       </div>
+      <div className='bg-white shadow-md rounded-lg p-6'>
       {isLoading ? (
-        <p>Loading...</p>
+        <div className='flex justify-center items-center'>
+        <p className='text-gray-500'>Loading...</p>
+        </div>
       ) : error ? (
-        <p className='text-red-500'>Error: {error}</p>
+        <div className='text-center'>
+        <p className='text-red-600 font-semibold'>Error: {error}</p>
+        </div>
       ) : (
         <div>
-          <p>Select a course to view its modules:</p>
-          <CourseDropdown onCourseSelected={handleCourseSelected} />
-          <p className='mt-2'>Modules:</p>
-          <ul className='list-disc list-inside'>
-            {moduleData?.map((module) => (
-              <li key={module.module_id} className='mb-2'>
-                {module.title}
-              </li>
+        <p className='text-gray-700 mb-4'>Select a course to view its modules:</p>
+        <CourseDropdown onCourseSelected={handleCourseSelected} />
+        <div className='mt-6'>
+          <h2 className='text-lg font-semibold text-gray-800'>Modules:</h2>
+          {moduleData?.length > 0 ? (
+          <ul className='list-disc list-inside mt-2 space-y-2'>
+            {moduleData.map((module) => (
+            <li
+              key={module.module_id}
+              className='p-2 bg-gray-50 rounded-md shadow-sm hover:bg-gray-100 transition'
+            >
+              <span className='text-gray-800'>{module.title}</span>
+            </li>
             ))}
           </ul>
+          ) : (
+          <p className='text-gray-500 mt-2'>No modules available for this course.</p>
+          )}
+        </div>
         </div>
       )}
+      </div>
     </div>
   );
 };

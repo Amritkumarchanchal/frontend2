@@ -60,35 +60,56 @@ const CreateSection = () => {
   }, [courseId, moduleId, dispatch])
 
   return (
-    <div className='p-5'>
-      <div className='mb-4 flex justify-between items-center'>
-        <h1 className='text-xl font-semibold'>All Modules</h1>
-        <AdminSectionCreation />
+    <div className='p-6 bg-gray-100 h-full'>
+      <div className='mb-6 flex justify-between items-center'>
+      <h1 className='text-2xl font-bold text-gray-800'>Manage Sections</h1>
+      <AdminSectionCreation />
       </div>
       {isLoading ? (
-        <p>Loading...</p>
+      <div className='flex justify-center items-center h-40'>
+        <p className='text-lg text-gray-600'>Loading...</p>
+      </div>
       ) : error ? (
-        <p className='text-red-500'>Error: {error}</p>
+      <div className='flex justify-center items-center h-40'>
+        <p className='text-lg text-red-500'>Error: {error}</p>
+      </div>
       ) : (
-        <div>
-          <p>Select a course to view its modules : </p>
-          <CourseDropdown onCourseSelected={handleCourseSelected} />
-          <p>Select a module to view its sections : </p>
-          {selectedCourseId && (
-            <ModuleDropdown
-              courseId={selectedCourseId}
-              onModuleSelected={handleModuleSelected}
-            />
-          )}
-          <p className='mt-2'>Sections :</p>
-          <ul className='list-disc list-inside'>
-            {sections?.map((section) => (
-              <li key={section.id} className='mb-2'>
-                {section.title}
-              </li>
-            ))}
-          </ul>
+      <div className='bg-white p-6 rounded-lg shadow-md'>
+        <div className='mb-4'>
+        <p className='text-lg font-medium text-gray-700'>
+          Select a course to view its modules:
+        </p>
+        <CourseDropdown onCourseSelected={handleCourseSelected} />
         </div>
+        {selectedCourseId && (
+        <div className='mb-4'>
+          <p className='text-lg font-medium text-gray-700'>
+          Select a module to view its sections:
+          </p>
+          <ModuleDropdown
+          courseId={selectedCourseId}
+          onModuleSelected={handleModuleSelected}
+          />
+        </div>
+        )}
+        <div>
+        <p className='text-lg font-medium text-gray-700'>Sections:</p>
+        {sections?.length ? (
+          <ul className='list-disc list-inside mt-2 space-y-2'>
+          {sections.map((section) => (
+            <li
+            key={section.id}
+            className='text-gray-800 bg-gray-50 p-2 rounded-md shadow-sm'
+            >
+            {section.title}
+            </li>
+          ))}
+          </ul>
+        ) : (
+          <p className='text-gray-500 mt-2'>No sections available.</p>
+        )}
+        </div>
+      </div>
       )}
     </div>
   )
