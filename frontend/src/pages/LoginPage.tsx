@@ -72,12 +72,36 @@ const LoginPage: React.FC = () => {
               </div>
             </div>
           </div> */}
-          <div
-            className='window'
-            style={{ left: coverLeft ? '0%' : '50%' }}
-          ></div>
+          <div className='flex flex-col justify-between py-10 items-center border-2'>
+            <div className='flex flex-col gap-4 p-6 md:p-10'>
+              <div className='flex justify-center z-20 mt-40'>
+                <img
+                  src='https://mmc.ugc.ac.in/newtheme/img/ugc_logo.png'
+                  alt='UGC Logo'
+                  className='h-16 w-auto object-contain'
+                />
+              </div>
+              <div className='flex justify-center z-10 -mt-20'>
+                <img
+                  src='https://annam.ai/wp-content/uploads/2025/01/4-1-768x768.png'
+                  alt='Annam Logo'
+                  className='h-80 w-auto object-contain'
+                />
+              </div>
+              <div className='flex justify-center -mt-60 z-0 -mb-20'>
+                <img
+                  src='https://dled-lab.github.io/logo.png'
+                  alt='UGC Logo'
+                  className='h-80 w-auto object-contain'
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </>
+      <div className='absolute bottom-0 w-full text-center bg-white py-2 mb-6'>
+        <h1 className='text-lg font-semibold'>Powered by Dhananjaya lab for education design</h1>
+      </div>
     </div>
   )
 }
