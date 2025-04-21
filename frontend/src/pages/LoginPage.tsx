@@ -37,7 +37,7 @@ const LoginPage: React.FC = () => {
             <img
               src="https://upload.wikimedia.org/wikipedia/en/f/f9/Indian_Institute_of_Technology_Ropar_logo.png"
               alt="IIT Ropar"
-              className="h-80 -mt-40 z-0 w-auto object-contain"
+              className="h-40 -mt-40 z-0 w-auto object-contain"
             />
             <img
               src="https://mmc.ugc.ac.in/newtheme/img/ugc_logo.png"
