@@ -35,6 +35,11 @@ const LoginPage: React.FC = () => {
         <div className="flex flex-col justify-center items-center p-6 lg:p-10 mt-20">
           <div className="flex flex-col gap-6 items-center">
             <img
+              src="https://upload.wikimedia.org/wikipedia/en/f/f9/Indian_Institute_of_Technology_Ropar_logo.png"
+              alt="IIT Ropar"
+              className="h-80 -mt-40 z-0 w-auto object-contain"
+            />
+            <img
               src="https://mmc.ugc.ac.in/newtheme/img/ugc_logo.png"
               alt="UGC Logo"
               className="h-16 w-auto object-contain"
