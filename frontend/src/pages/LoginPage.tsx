@@ -60,6 +60,9 @@ const LoginPage: React.FC = () => {
 
       {/* Footer Section */}
       <div className="absolute bottom-0 w-full text-center bg-white py-4 shadow-md">
+      <h1 className="text-xl font-bold text-gray-900">
+          Indian Institude of Technology, Ropar
+        </h1>
         <h1 className="text-lg font-semibold text-gray-700">
           Powered by Dhananjaya Lab for Education Design
         </h1>
